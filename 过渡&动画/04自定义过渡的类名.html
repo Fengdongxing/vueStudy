@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="example-3">
+    <button v-on:click="show = !show">
+        Toggle render
+    </button>
+    <transition
+            name="custom-classes-transition"
+            enter-
+    >
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    /*
+    我们可以通过以下attribute来定义过渡类名
+    enter-class
+    enter-active-class
+    enter-to-class(2.1.8+)
+    leave-class
+    leave-active-class
+    leave-to-class
+    他们的优先级高于普通的类名,这对于Vue的过渡系统和其他第三方CSS动画库,如Animate.css结合使用十分有用
+    * */
+    var vm = new Vue({
+        el: '#example-1',
+        data: {
+            show: true
+        },
+    });
+</script>
+</body>
+</html>

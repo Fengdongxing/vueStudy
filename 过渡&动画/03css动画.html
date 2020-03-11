@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bounce-enter-active {
+            animation: bounce-in .5s;
+        }
+        .bounce-leave-active {
+            animation: bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform:scale(0);
+            }
+            50% {
+                transform:scale(1.5);
+            }
+            100% {
+                transform:scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="example-1">
+    <button v-on:click="show = !show">
+        Toggle show
+    </button>
+    <transition name="bounce">
+        <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p>
+    </transition>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    /*
+    * CSS 动画用法同 CSS 过渡，区别是在动画中 v-enter 类名在节点插入 DOM 后不会立即删除，而是在 animationend 事件触发时删除。
+    * */
+    var vm = new Vue({
+        el: '#example-1',
+        data: {
+            show: true
+        },
+    });
+</script>
+</body>
+</html>

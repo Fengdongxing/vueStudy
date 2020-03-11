@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*可以设置不同的进入和离开动画*/
+        /*设置持续时间和动画函数*/
+        .slider-fade-enter-active {
+            transition: all  .3s ease;
+        }
+        .slider-fade-leave--active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        .slider-fade-enter, slider-fade-leave-to {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="example-1">
+    <button v-on:click="show = !show">
+        Toggle render
+    </button>
+    <transition name="slider-fade">
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 常用的过渡都是使用 CSS 过渡。
+
+下面是一个简单例子：
+    * */
+    var vm = new Vue({
+        el: '#example-1',
+        data: {
+            show: true
+        },
+    });
+</script>
+</body>
+</html>
