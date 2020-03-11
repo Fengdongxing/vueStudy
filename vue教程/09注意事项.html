@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+    <div v-for="(item, index) in items" :key="index">{{item}}</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 由于JavaScript的限制,Vue不能检测以下数组的变动:
+    // 1当你修改数组的长度时,例如: vm.items[indexOfItem] = newValue
+    // 2.当你修改数组的长度时,例如: vm.items.length = newLength
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            items:['a','b','c']
+        },
+    });
+    // vm.items[1] = 'x' // 不是响应式的
+    // vm.items.length = 2 // 不是响应式的
+    // 第一个问题解决办法有两种
+    // Vue.set(vm.items, 1, 'x');
+    // vm.items.splice(0, 1, 'x');
+    // vm.$set(vm.items, 1, 'x');
+
+//     为了解决第二类问题，你可以使用 splice：
+//
+// vm.items.splice(newLength)
+</script>
+</body>
+</html>

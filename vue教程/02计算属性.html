@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{message.split('').reverse().join('')}}
+</div>
+<div id="app2">
+    <p>Original message: '{{message}}'</p>
+    <p>Computed reversed message: '{{reverseMessage}}'</p>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            message: 'hello vue'
+        },
+        // 对于任何复杂逻辑,你都应当适用计算属性
+
+    })
+    var vm = new Vue({
+        el: '#app2',
+        data:{
+            message: 'hello vue'
+        },
+        // 对于任何复杂逻辑,你都应当适用计算属性
+        computed:{
+            reverseMessage(){
+                return this.message.split('').reverse().join('');
+            }
+        }
+    })
+</script>
+</body>
+</html>

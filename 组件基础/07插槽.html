@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+<!--    <text-document :title="doc.title" @updata:title="doc.title =  $event"></text-document>-->
+<!--    为了方便起见，我们为这种模式提供一个缩写，即 .sync 修饰符：-->
+    <text-document v-bind:title.sync="doc.title"></text-document>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('textDocument',{
+        props: ['title'],
+        template: '<div @click="titleHandle">{{title}}</div>',
+
+        methods:{
+            titleHandle(){
+                // this.$emit('updata:title',  '新的title');
+                this.title = '新的title';
+            }
+        }
+    })
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            doc:{
+                title:'这是原来的title'
+            }
+        },
+    });
+</script>
+</body>
+</html>

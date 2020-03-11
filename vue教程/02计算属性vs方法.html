@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app2">
+    <p>Original message: '{{message}}'</p>
+    <p>Computed reversed message: '{{reverseMessage}}'</p>
+    <p>Computed reversed message: '{{reverseMessage2()}}'</p>
+    <p>{{now}}</p>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    /*我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才会重新求值。这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。*/
+    var vm = new Vue({
+        el: '#app2',
+        data:{
+            message: 'hello vue'
+        },
+        // 对于任何复杂逻辑,你都应当适用计算属性
+        computed:{
+            reverseMessage(){
+                return this.message.split('').reverse().join('');
+            },
+            now: function () {
+                return Date.now()
+            }
+        },
+        methods:{
+            reverseMessage2(){
+                return this.message.split('').reverse().join('');
+            }
+        }
+    });
+    //  相比之下,每当触发重新渲染时,调用方法将会再次执行函数.
+    //  我们为什么需要缓存? 假设我们有一个性能开销比较大的计算属性A,它需要遍历一个巨大的数组并做大量的计算,然后我们可能有其他的计算属性依赖A.如果没有缓存,我们将不可避免的多次执行A的getter!,如果你不希望有缓存,请用方法替代.
+</script>
+</body>
+</html>

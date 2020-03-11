@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+<!--   v-bind:style的对象语法十分直观--看着非常像css,但其实是一个Javascript对象.css属性名可以用驼峰式(camelCase)或短横线分割
+keb
+-->
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    //
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            isActive: true
+        },
+    });
+</script>
+</body>
+</html>

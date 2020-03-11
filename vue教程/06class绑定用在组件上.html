@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+    <my-component class="baz boo"></my-component>
+    <my-component v-bind:class="{ active: isActive }"></my-component>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 可以用在组件上,class元素将被添加到该组件的根元素上面.这个元素上已经存在的class不会被覆盖
+    Vue.component('my-component', {
+        template: '<p class="foo bar">Hi</p>'
+    })
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            isActive: true
+        },
+    });
+</script>
+</body>
+</html>

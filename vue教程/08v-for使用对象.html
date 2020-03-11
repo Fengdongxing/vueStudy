@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+<!---->
+    <ul>
+        <li
+            v-for="(value, in object"
+        >{{ value }}</li>
+    </ul>
+    <div v-for="(value, name) in object">
+        {{ name }}: {{ value }}
+    </div>
+    <div v-for="(value, name, index) in object" :key="index">
+        {{ index }} {{ name }}: {{ value }}
+    </div>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<!--在遍历对象时,会按Object.keys()的结构遍历,但是不能保证它的结构在不同的JavaScript引擎下都一致-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    //
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+           object:{
+               title: 'How to do lists in Vue',
+               author: 'Jane Doe',
+               publishedAt: '2016-04-10'
+           }
+        },
+    });
+</script>
+</body>
+</html>

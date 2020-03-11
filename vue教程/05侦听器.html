@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app3">
+    <p>
+        Ask a yes/no question:
+        <input type="text" v-model="question">
+    </p>
+    <p>{{answer}}</p>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+    // 侦听器
+    //  虽然计算属性在大多数情况下更合适,但有时也需要一个自定义的侦听器,这就是为什么Vue通过
+    //  watch选项提供了一个更通用的方法,来相应数据的变化.当需要在数据变化时,执行异步或开销比较大的操作时,这个方式是最有用的.
+
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            question: '',
+            answer: 'I cannot give you an answer until you ask a question!'
+        },
+        watch:{
+            question:function (newQuestion,oldQuestion) {
+                this.answer = 'Waiting for you to stop typing...';
+                this.debouncedGetAnswer()
+            }
+        },
+        created(){
+            this.debouncedGetAnswer = _.debounce(this.getAnswer,500);
+        },
+        methods:{
+            getAnswer:function () {
+                if(this.question.indexOf('?') === -1){
+                    this.answer = 'Questions usually contain a question mark.'
+                    return
+                }
+                this.answer = 'Thinking...'
+                var vm = this
+                axios.get('https://yesno.wtf/api')
+                    .then(function (response) {
+                        vm.answer = _.capitalize(response.data.answer)
+                    })
+                    .catch(function (error) {
+                        vm.answer = 'Error! Could not reach the API. ' + error
+                    })
+            }
+        }
+    });
+</script>
+</body>
+</html>

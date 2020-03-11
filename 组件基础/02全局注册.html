@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    //
+    Vue.component('my-component',{/*....*/})
+    // 到目前为止，我们只用过 Vue.component 来创建组件：
+    var ComponentA = { /* ... */ }
+
+    var ComponentB = {
+        components: {
+            'component-a': ComponentA
+        },
+        // ...
+    }
+    import ComponentA from './ComponentA'
+    import ComponentC from './ComponentC'
+
+    export default {
+        components: {
+            ComponentA,
+            ComponentC
+        },
+        // ...
+    }
+</script>
+</body>
+</html>

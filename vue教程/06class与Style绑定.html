@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app3">
+    <div v-bind:class="{ active: isActive }">test</div>
+    <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">test</div>
+    <!--绑定的数据对象不必内联定义在模板里-->
+    <div v-bind:class="classObject">test</div>
+<!--我们也可以在这里绑定一个返回对象的计算属性 这是一个常用且强大的模式-->
+    <div v-bind:class="classObject2">test</div>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            isActive: false,
+            hasError: false,
+            classObject:{
+                active: true,
+                'text-danger': false
+            }
+        },
+        computed:{
+            classObject2(){
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

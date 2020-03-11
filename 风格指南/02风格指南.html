@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{message}}
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 非 Flux 的全局状态管理 谨慎使用
+    // 应该优先通Vuex管理全局状态,而不是通过this.$root或一个全局事件总线,
+    // 通过 this.$oot和/或全局事件总线管理状态在很多简单的情况下都是很方便的,但是并不适用于绝大多数的应用,
+    //  Vuex提供的不仅是一个管理状态的中心区域,还是 组织,追踪和调试状态变更的好工具.
+
+    // main.js
+    new Vue({
+        data: {
+            todos: []
+        },
+        created:function () {
+            this.$on('remove-todo', this.removeTodo);
+        },
+        methods:{
+            removeTodo(todo){
+                var todoIdToRemove = todo.id;
+                this.todos = this.todos.filter((function (todo) {
+                    return todo.id !== todoIdToRemove;
+                }))
+            }
+        }
+    })
+    // 好例子
+    // store/modules/todos.js
+    export default {
+        state: {
+            list: []
+        },
+        mutations:{
+            REMOVE_TODO(state,todoId){
+                state.list = state.list.filter(todo  => todo.id !== todoId)
+            }
+        },
+        actions:{
+            removeTodo({ commit, state },todo){
+                commit('REMOVE_TODO',todo.id)
+            }
+        }
+    }
+    // todoItem.vue
+
+</script>
+<script>
+    import { mapActions } from 'vuex'
+    export default {
+        prop:{
+            todo: {
+                type: Object,
+                required: true
+            }
+        },
+        methods: mapActions(['removeTodo'])
+    }
+</script>
+</body>
+</html>

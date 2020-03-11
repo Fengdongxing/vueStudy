@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+    <div v-for="(item, index) in evenNumbers" :key="index">{{item}}</div>
+    <!--在计算属性不适用的情况下,可以适用一个方法-->
+    <div v-for="(item2, k) in even(numbers)" :key="'a' + k">{{item2}}</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app3',
+        data:{
+            numbers:[1,2,3,4,5]
+        },
+        computed:{
+            evenNumbers:function () {
+                return this.numbers.filter(function (number) {
+                    return number % 2 == 0;
+                })
+            },
+        },
+        methods:{
+            even(numbers){
+                return numbers.filter(function (number) {
+                    return number % 2 == 0;
+                })
+            }
+        }
+    });
+</script>
+</body>
+</html>
